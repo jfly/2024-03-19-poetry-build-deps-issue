@@ -1,0 +1,15 @@
+services:
+  mydevpi:
+    build: mydevpi
+  poetry-1.8.2-pkginfo-1.9.6:
+    build: poetry-1.8.2-pkginfo-1.9.6
+    volumes:
+      - ./:/playground
+    depends_on:
+      - mydevpi
+  poetry-1.8.2-pkginfo-1.10.0:
+    build: poetry-1.8.2-pkginfo-1.10.0
+    volumes:
+      - ./:/playground
+    depends_on:
+      - mydevpi

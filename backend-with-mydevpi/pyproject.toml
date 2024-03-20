@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "backend-with-mydevpi"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[[tool.poetry.source]]
+name = "mydevpi"
+url = "http://mydevpi:3141/root/pypi/+simple"
+default = true
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+hatchling = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
