@@ -1,6 +1,17 @@
 A demonstration of a bug that resulted from a nasty interaction between poetry,
 poetry's caching mechanism, pkginfo, and hatchling.
 
+## Updates
+
+### 2023-03-21
+
+I've filed issues with `pkginfo` and `poetry` to see if either of them are
+interested in changing their behavior here. Hopefully this goes somewhere
+useful:
+
+- https://bugs.launchpad.net/pkginfo/+bug/2058697: "Would you be open to adding a "strict" parsing mechanism in Distribution?"
+- https://github.com/python-poetry/poetry/issues/9195 "Better handling of unrecognized metadata versions"
+
 ## To repro
 
 Note how locking here *only* mentions hatchling, and none of its dependencies
