@@ -1,6 +1,6 @@
 FROM python:3.11
 
-# Install poetry into a venv (https://python-poetry.org/docs/#installing-manually).
+# Install poetry into a venv (https://python-poetry.org/docs/#installing-with-the-official-installer).
 ENV POETRY_HOME=/opt/poetry
 ENV PATH=$POETRY_HOME/bin:$PATH
 RUN python -m venv $POETRY_HOME && $POETRY_HOME/bin/pip install poetry==1.8.2

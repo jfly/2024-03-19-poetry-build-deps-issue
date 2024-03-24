@@ -13,3 +13,9 @@ services:
       - ./:/playground
     depends_on:
       - mydevpi
+  poetry-1.9.x.prerelease-pkginfo-1.9.6:
+    build: poetry-1.9.x.prerelease-pkginfo-1.9.6
+    volumes:
+      - ./:/playground
+    depends_on:
+      - mydevpi

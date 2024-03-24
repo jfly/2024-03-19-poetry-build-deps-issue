@@ -3,6 +3,65 @@ poetry's caching mechanism, pkginfo, and hatchling.
 
 ## Updates
 
+### 2023-03-24
+
+Poetry added stricter parsing of package metadata, see
+https://github.com/python-poetry/poetry/pull/9203. Thanks @abn!
+
+This hasn't been released yet, but you can try it out here:
+
+    $ docker compose run poetry-1.9.x.prerelease-pkginfo-1.9.6 -c 'cd backend-with-mydevpi && poetry lock -vv'
+    ...
+    Using virtualenv: /opt/venv
+    Updating dependencies
+    Resolving dependencies...
+       1: fact: backend-with-mydevpi is 0.1.0
+       1: derived: backend-with-mydevpi
+       1: fact: backend-with-mydevpi depends on hatchling (*)
+       1: selecting backend-with-mydevpi (0.1.0)
+       1: derived: hatchling
+       1: Version solving took 0.070 seconds.
+       1: Tried 1 solutions.
+
+      ValueError
+
+      Package('hatchling', '1.22.4') is not in list
+
+      at /opt/poetry/lib/python3.11/site-packages/poetry/repositories/legacy_repository.py:57 in package
+           53│         Note that this will be cached so the subsequent operations
+           54│         should be much faster.
+           55│         """
+           56│         try:
+        →  57│             index = self._packages.index(Package(name, version))
+           58│
+           59│             return self._packages[index]
+           60│         except ValueError:
+           61│             package = super().package(name, version, extras)
+
+    The following error occurred when trying to handle this error:
+    ...
+
+    PackageInfoError
+
+    Unable to determine package info for path: /tmp/tmpdkj0o8_8/hatchling-1.22.4-py3-none-any.whl
+
+    Unknown metadata version
+
+    at /opt/poetry/lib/python3.11/site-packages/poetry/inspection/info.py:554 in from_wheel
+        550│         try:
+        551│             wheel = pkginfo.Wheel(str(path))
+        552│             return cls._from_distribution(wheel)
+        553│         except ValueError as e:
+      → 554│             raise PackageInfoError(path, e)
+        555│
+        556│     @classmethod
+        557│     def from_bdist(cls, path: Path) -> PackageInfo:
+        558│         """
+
+I do think it would be nice for this error message to include the unrecognized
+metadata version number, I've sent in a PR for that here:
+https://github.com/python-poetry/poetry/pull/9226.
+
 ### 2023-03-21
 
 I've filed issues with `pkginfo` and `poetry` to see if either of them are
